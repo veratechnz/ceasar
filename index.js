@@ -11,12 +11,13 @@
 // All letters will be uppercase. Do not transform any non-alphabetic 
 // character (i.e. spaces, punctuation), but do pass them on.
 
-function rot13(str) { // LBH QVQ VG!
-  var rinseArray = [99, 100, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74];
-  
+function rot13(str) {
   // Store original string values
   var locator = [];
+  // Pre rinsed Array
+  var preRinsed;
 
+  // Forloop for original unicode conversion
   for (var i = 0; i <= str.length; i++) {
   		locator.push(str.charCodeAt(i));
   };
@@ -52,16 +53,44 @@ function rot13(str) { // LBH QVQ VG!
       return arr.filter(Boolean);
     }
 
-    return removal(catchArr);
+    preRinsed = removal(catchArr);
 
   } //resetItems Ends
 
-  return(resetItems(locator));
+  //Function that checks for -10 values that go beyond charcode values
+  function shiftValues(arr){
+
+    var copy = [];
+
+    for (var i = 0; i < arr.length; i++) {
+
+      if (arr[i] > 84 ) {
+        copy.push(arr[i] - 10);
+      };
+      
+      if (arr[i] < 84) {
+        copy.push(arr[i] + 16);
+      };
+
+    }
+
+    return copy;
+
+  }
+
+  resetItems(locator);
+
+  // Fixed numvers and placement. now converting back to letters with 
+  function backToLetters(){
+
+  }
+
+
+  console.log(preRinsed);
+  return shiftValues(preRinsed);
 
 }
 
-//Got to cleaning the array and returning it.
-// Also have rinseArray for -10 assistance
 
 console.log(rot13("SERR PBQR PNZC"));
 
