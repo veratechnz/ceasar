@@ -40,7 +40,7 @@ function rot13(str) {
       //This if statement removes empty spaces 32's and 42's 
       //from the array 
       if(arr[i] != 32){
-        x = arr[i] + 10;
+        x = arr[i];
         catchArr.push(x);
         x = 0;         
       }
@@ -58,39 +58,51 @@ function rot13(str) {
   } //resetItems Ends
 
   //Function that checks for -10 values that go beyond charcode values
-  function shiftValues(arr){
+  function cipherEngine(arr){
 
     var copy = [];
 
     for (var i = 0; i < arr.length; i++) {
 
-      if (arr[i] > 84 ) {
-        copy.push(arr[i] - 10);
+      //Most ceasars cypher numbers work if 10 is subtracted
+      if (arr[i] > 64 && arr[i] < 78) {
+        copy.push(arr[i] + 13);
       };
       
-      if (arr[i] < 84) {
-        copy.push(arr[i] + 16);
+      //Adding 16 creates a loop within specific charcode values
+      if (arr[i] > 77) {
+        copy.push(arr[i] - 13);
       };
 
     }
 
-    return copy;
+    // Fixed numvers and placement. now copynverting back to letters with 
+    function backToLetters(arr){
 
-  }
+      var getter = [];
 
+      for (var i = 0; i < arr.length; i++) {
+        getter.push(String.fromCharCode(arr[i])); 
+      }
+
+      return getter;
+
+    }
+
+    console.log(copy + 'a');
+    return backToLetters(copy);
+
+  } //shiftValues ends
+
+  //Trigger invokation
   resetItems(locator);
 
-  // Fixed numvers and placement. now converting back to letters with 
-  function backToLetters(){
-
-  }
-
-
+  //Final Value
+  console.log(String.fromCharCode(78));
   console.log(preRinsed);
-  return shiftValues(preRinsed);
+  return cipherEngine(preRinsed);
 
 }
 
-
-console.log(rot13("SERR PBQR PNZC"));
+console.log(rot13("SERR CVMMN!"));
 
