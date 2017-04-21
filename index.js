@@ -12,50 +12,14 @@
 // character (i.e. spaces, punctuation), but do pass them on.
 
 function rot13(str) {
+
   // Store original string values
   var locator = [];
-  // Pre rinsed Array
-  var preRinsed;
 
   // Forloop for original unicode conversion
   for (var i = 0; i <= str.length; i++) {
   		locator.push(str.charCodeAt(i));
   };
-
-  //Remove sting spaces i.e: 32
-  function cleanLocator(value) {
-    return value != 32;
-  }
-
-  //Cleaned array for reset step
-  var cleanLocator = locator.filter(cleanLocator);
-
-  //Reset charcode reference
-  function resetItems(arr){
-
-    var x;
-    var catchArr = [];
-
-    for (var i = 0; i < arr.length; i++) {
-      //This if statement removes empty spaces 32's and 42's 
-      //from the array 
-      if(arr[i] != 32){
-        x = arr[i];
-        catchArr.push(x);
-        x = 0;         
-      }
-
-    }; //for loop ends
-
-    // This removes all falsey values from the Array
-    // including NaN
-    function removal(arr) {
-      return arr.filter(Boolean);
-    }
-
-    preRinsed = removal(catchArr);
-
-  } //resetItems Ends
 
   //Function that checks for -10 values that go beyond charcode values
   function cipherEngine(arr){
@@ -63,6 +27,11 @@ function rot13(str) {
     var copy = [];
 
     for (var i = 0; i < arr.length; i++) {
+
+      //Most ceasars cypher numbers work if 10 is subtracted
+      if (arr[i] > 0 && arr[i] < 42) {
+        copy.push(arr[i]);
+      };
 
       //Most ceasars cypher numbers work if 10 is subtracted
       if (arr[i] > 64 && arr[i] < 78) {
@@ -89,18 +58,14 @@ function rot13(str) {
 
     }
 
-    console.log(copy + 'a');
-    return backToLetters(copy);
+    var result = backToLetters(copy);
+    var finalize = result.join(''); 
+
+    return finalize;
 
   } //shiftValues ends
 
-  //Trigger invokation
-  resetItems(locator);
-
-  //Final Value
-  console.log(String.fromCharCode(78));
-  console.log(preRinsed);
-  return cipherEngine(preRinsed);
+  return cipherEngine(locator);
 
 }
 
