@@ -29,7 +29,7 @@ function rot13(str) {
     for (var i = 0; i < arr.length; i++) {
 
       //Most ceasars cypher numbers work if 10 is subtracted
-      if (arr[i] > 0 && arr[i] < 42) {
+      if (arr[i] > 0 && arr[i] < 65) {
         copy.push(arr[i]);
       };
 
@@ -69,5 +69,5 @@ function rot13(str) {
 
 }
 
-console.log(rot13("SERR CVMMN!"));
+console.log(rot13("SERR YBIR?"));
 
